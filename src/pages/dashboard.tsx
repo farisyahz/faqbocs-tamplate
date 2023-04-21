@@ -35,7 +35,7 @@ export default function Dashboard(){
     },
   ])
 
-  const handleDragEnd = (event) => {
+  const handleDragEnd = (event:any) => {
     console.log("Drag");
     const {active, over} = event;
 
