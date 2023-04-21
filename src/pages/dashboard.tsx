@@ -5,10 +5,6 @@ import { DndContext,
   useSensor,
   useSensors
   } from "@dnd-kit/core"
-import {
-  MouseSensor as LibMouseSensor,
-  KeyboardSensor as LibKeyboardSensor
-} from '@dnd-kit/core'
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import {useState} from 'react'
 import type { PointerEvent } from "react";
@@ -45,8 +41,6 @@ export default function Dashboard(){
         const overIndex = items.map(item => item.id).indexOf(over.id)
         console.log(arrayMove(items, activeIndex, overIndex));
         return arrayMove(items, activeIndex, overIndex);
-        // items: [2, 3, 1]   0  -> 2
-        // [1, 2, 3] oldIndex: 0 newIndex: 2  -> [2, 3, 1] 
       });
     }
   }

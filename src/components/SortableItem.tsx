@@ -2,7 +2,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {useState} from 'react';
-import {RxDragHandleDots2} from 'react-icons/Rx'
+import {RxDragHandleDots2} from 'react-icons/rx'
 
 export default function SortableItem({id, q, a}:{id:number, q:string, a:string}){
   const {
