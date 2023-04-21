@@ -14,6 +14,8 @@ import { PointerSensor } from "@dnd-kit/core";
 
 
 export default function Dashboard(){
+
+  const [addQuestion, setAddQuestion] = useState(false);
   
   const [data, setData] = useState<{id:number, q:string, a:string}[]>([
     {
@@ -92,7 +94,18 @@ export default function Dashboard(){
     <div className="w-[100vw] h-[100vh] bg-sky-300">
       <div className="sm:max-w-lg w-[95%] mx-auto pt-10">
         <h1 className="font-poppins text-3xl font-semibold text-center">Dashboard</h1>
-        <button className="bg-blue-600 mt-5 hover:bg-blue-500 flex justify-center items-center py-2 px-3 w-full font-poppins text-lg font-semibold gap-3 rounded-lg text-slate-50">Add Question<HiPlus className="text-2xl"/></button>
+        {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-500 flex justify-center items-center py-2 px-3 w-full font-poppins text-lg font-semibold gap-3 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}>Add Question<HiPlus className="text-2xl" /></button>}
+        {addQuestion && (
+          <form className="w-full p-5 flex font-poppins flex-col backdrop-blur-md bg-white/50 border-[1px] border-gray-200 rounded-lg gap-2 mt-3">
+            <label htmlFor="question">Question : </label>
+            <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoFocus placeholder="Question..." />
+            <label htmlFor="question">Answer : </label>
+            <input type="text" name="answer" id="answer" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" placeholder="Answer..."
+            />
+            <button type="submit" className="bg-blue-600 text-sm text-slate-50 py-2 px-3 rounded-md font-semibold w-fit flex gap-2 mt-2" onClick={() => setAddQuestion(!addQuestion)}>Add <HiPlus className="text-lg"/></button>
+          </form>
+        )}
+        
         <DndContext
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
