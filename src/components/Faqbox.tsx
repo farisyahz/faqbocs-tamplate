@@ -43,9 +43,10 @@ export default function(){
       {pop && <PopupQuestion setPop={setPop}/>}
       <div className="flex flex-col min-h-[100vh] align-middle sm:max-w-md justify-between py-16 px-10 mx-auto">
         <div className="mx-auto flex flex-col items-center">
-          <div className="bg-[#f4f4f4] w-36 h-36 shadow-md rounded-full flex">
+          <div className="bg-[#f4f4f4] w-36 h-36 shadow-md rounded-full flex relative">
             <Image
               src={logo}
+              height={100}
               width={100}
               alt=""
               className="m-auto"
