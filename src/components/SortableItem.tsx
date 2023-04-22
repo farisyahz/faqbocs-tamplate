@@ -14,7 +14,7 @@ export default function SortableItem({id, q, a}:{id:number, q:string, a:string})
   } = useSortable({id:id, data:{qna:{id:id, q:q, a:a}}})
 
   const style = {
-    transform : CSS.Transform.toString(transform),
+    transform : CSS.Translate.toString(transform),
     transition
   }
 
@@ -23,8 +23,8 @@ export default function SortableItem({id, q, a}:{id:number, q:string, a:string})
   return(
     <div ref={setNodeRef} style={style} className="touch-none" {...attributes} {...listeners}>
       <div className="font-poppins w-full bg-white/50 backdrop-blur-md border-[1px] border-gray-200 rounded-lg flex mt-3">
-        <span className="w-10 flex">
-         <RxDragHandleDots2 className="text-2xl m-auto"/>
+        <span className="w-10 flex cursor-grab active:cursor-grabbing">
+         <RxDragHandleDots2 className="text-lg m-auto"/>
         </span>
         <div className="w-full p-3">
           <div className=" font-semibold mb-1">{q}</div>
