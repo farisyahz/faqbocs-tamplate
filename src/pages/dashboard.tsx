@@ -7,14 +7,18 @@ import { DndContext,
   } from "@dnd-kit/core"
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import {useState} from 'react'
-import type { PointerEvent } from "react";
-import { PointerSensor } from "@dnd-kit/core";
+import {RxCross1} from "react-icons/rx"
+import { SmartPointerSensor } from "@/utils/helper";
 
 
 
 export default function Dashboard(){
 
   const [addQuestion, setAddQuestion] = useState(false);
+  const sensors = [useSensor(SmartPointerSensor)];
+  const [newQuestion, setNewQuestion] = useState("")
+  const [newAnswer, setNewAnswer] = useState("")
+  const [empty, setEmpty] = useState(false)
   
   const [data, setData] = useState<{id:number, q:string, a:string}[]>([
     {
@@ -47,70 +51,36 @@ export default function Dashboard(){
       });
     }
   }
-
-  class SmartPointerSensor extends PointerSensor {
-    static activators = [
-        {
-            eventName: "onPointerDown" as any,
-            handler: ({ nativeEvent: event }: PointerEvent) => {
-                if (
-                    !event.isPrimary ||
-                    event.button !== 0 ||
-                    isInteractiveElement(event.target as Element)
-                ) {
-                    return false;
-                }
   
-                return true;
-            },
-        },
-    ];
-  }
-  
-  function isInteractiveElement(element: Element | null) {
-    const interactiveElements = [
-        "button",
-        "input",
-        "textarea",
-        "select",
-        "option",
-        "div"
-    ];
-    if (
-        element?.tagName &&
-        interactiveElements.includes(element.tagName.toLowerCase())
-    ) {
-        console.log(element.tagName)
-        return true;
+  const handleSumbit = (e:any) => {
+    e.preventDefault()
+    if(newQuestion.trim() && newAnswer.trim()){
+      setAddQuestion(!addQuestion)
+      setData([{id:(data.length+1), q:newQuestion, a:newAnswer}, ...data])
+      setNewQuestion("")
+      setNewAnswer("")
+      setEmpty(false)
+    }else{
+      setEmpty(true)
     }
-  
-    return false;
-  }
-
-  const sensors = [useSensor(SmartPointerSensor)];
-
-  const [newQuestion, setNewQuestion] = useState("")
-  const [newAnswer, setNewAnswer] = useState("")
-  const handleSumbit = () => {
-    setAddQuestion(!addQuestion)
-    setData([{id:(data.length+1), q:newQuestion, a:newAnswer}, ...data])
-    setNewQuestion("")
-    setNewAnswer("")
+    
   }
 
   return(
-    <div className="w-[100vw] h-[100vh] bg-sky-300">
+    <div className="min-w-[100vw] h-[100vh] overflow-hidden hidd bg-sky-300">
       <div className="sm:max-w-lg w-[95%] mx-auto pt-10">
         <h1 className="font-poppins text-3xl font-semibold text-center">Dashboard</h1>
 
         {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-500 flex justify-center items-center py-2 px-3 w-full transition font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
         {addQuestion && (
-          <form onSubmit={handleSumbit} className="w-full p-5 flex font-poppins flex-col backdrop-blur-md bg-white/50 border-[1px] border-gray-200 rounded-lg gap-2 mt-3">
+          <form onSubmit={handleSumbit} className={`w-full p-5 flex font-poppins flex-col backdrop-blur-md bg-white/50 border-[1px] border-gray-200 rounded-lg gap-2 mt-3 relative`}>
+            <button className="h-8 w-8 rounded-full flex justify-center items-center text-slate-900 bg-gray-100 transition hover:text-white hover:bg-red-500 text-xl p-0 absolute -top-2 -right-2" onClick={()=>{setAddQuestion(false);setEmpty(false)}}><RxCross1 className="text-lg"/></button>
             <label htmlFor="question">Question : </label>
-            <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoFocus placeholder="Question..." value={newQuestion} onChange={(e)=>{setNewQuestion(e.target.value);}}/>
+            <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoComplete="off" autoFocus placeholder="Question..." value={newQuestion} onChange={(e)=>{setNewQuestion(e.target.value);}}/>
             <label htmlFor="question">Answer : </label>
-            <input type="text" name="answer" id="answer" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" placeholder="Answer..."
+            <input type="text" name="answer" id="answer" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoComplete="off" placeholder="Answer..."
             value={newAnswer} onChange={(e)=>setNewAnswer(e.target.value)}/>
+            {empty && <p className="text-red-500 text-sm">*Please fill the question and answer</p>}
             <button type="submit" className="bg-blue-600 text-sm text-slate-50 py-2 px-3 rounded-md font-semibold w-fit flex gap-2 mt-2" >Add <HiPlus className="text-lg"/></button>
           </form>
         )}
