@@ -94,6 +94,8 @@ export default function Dashboard(){
   const handleSumbit = () => {
     setAddQuestion(!addQuestion)
     setData([{id:(data.length+1), q:newQuestion, a:newAnswer}, ...data])
+    setNewQuestion("")
+    setNewAnswer("")
   }
 
   return(
@@ -101,11 +103,11 @@ export default function Dashboard(){
       <div className="sm:max-w-lg w-[95%] mx-auto pt-10">
         <h1 className="font-poppins text-3xl font-semibold text-center">Dashboard</h1>
 
-        {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-500 flex justify-center items-center py-2 px-3 w-full font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
+        {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-500 flex justify-center items-center py-2 px-3 w-full transition font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
         {addQuestion && (
           <form onSubmit={handleSumbit} className="w-full p-5 flex font-poppins flex-col backdrop-blur-md bg-white/50 border-[1px] border-gray-200 rounded-lg gap-2 mt-3">
             <label htmlFor="question">Question : </label>
-            <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoFocus placeholder="Question..." value={newQuestion} onChange={(e)=>setNewQuestion(e.target.value)}/>
+            <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoFocus placeholder="Question..." value={newQuestion} onChange={(e)=>{setNewQuestion(e.target.value);}}/>
             <label htmlFor="question">Answer : </label>
             <input type="text" name="answer" id="answer" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" placeholder="Answer..."
             value={newAnswer} onChange={(e)=>setNewAnswer(e.target.value)}/>

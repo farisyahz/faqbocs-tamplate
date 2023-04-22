@@ -22,7 +22,7 @@ export default function SortableItem({id, q, a}:{id:number, q:string, a:string})
 
   return(
     <div ref={setNodeRef} style={style} className="touch-none" {...attributes} {...listeners}>
-      <div className="font-poppins w-full bg-white/50 backdrop-blur-md border-[1px] border-gray-200 rounded-lg flex mt-3">
+      <div className="font-poppins w-full bg-white/50 backdrop-blur-md border-[1px] border-gray-200 rounded-lg flex mt-3 transition duration-300">
         <span className="w-10 flex cursor-grab active:cursor-grabbing">
          <RxDragHandleDots2 className="text-lg m-auto"/>
         </span>
