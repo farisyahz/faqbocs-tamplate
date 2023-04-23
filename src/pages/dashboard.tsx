@@ -2,6 +2,7 @@ import SortableItem from "@/components/SortableItem"
 import { HiPlus } from 'react-icons/hi';
 import { DndContext,
   closestCenter,
+  MeasuringStrategy,
   useSensor,
   useSensors
   } from "@dnd-kit/core"
@@ -9,6 +10,7 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-ki
 import {useState} from 'react'
 import {RxCross1} from "react-icons/rx"
 import { SmartPointerSensor } from "@/utils/helper";
+import Tiptap from "@/components/Tiptap";
 
 
 
@@ -38,6 +40,12 @@ export default function Dashboard(){
     },
   ])
 
+  const measuringConfig = {
+    droppable: {
+      strategy: MeasuringStrategy.Always,
+    }
+  };
+
   const handleDragEnd = (event:any) => {
     console.log("Drag");
     const {active, over} = event;
@@ -63,7 +71,10 @@ export default function Dashboard(){
     }else{
       setEmpty(true)
     }
-    
+  }
+
+  const handleDelete = (id:number)=>{
+    setData(data.filter((item) => item.id !== id))
   }
 
   return(
@@ -74,13 +85,15 @@ export default function Dashboard(){
         {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-500 flex justify-center items-center py-2 px-3 w-full transition font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
         {addQuestion && (
           <form onSubmit={handleSumbit} className={`w-full p-5 flex font-poppins flex-col backdrop-blur-md bg-white/50 border-[1px] border-gray-200 rounded-lg gap-2 mt-3 relative`}>
-            <button className="h-8 w-8 rounded-full flex justify-center items-center text-slate-900 bg-gray-100 transition hover:text-white hover:bg-red-500 text-xl p-0 absolute -top-2 -right-2" onClick={()=>{setAddQuestion(false);setEmpty(false)}}><RxCross1 className="text-lg"/></button>
+            <button className="h-8 w-8 rounded-full flex justify-center items-center text-slate-900 bg-gray-100 transition hover:text-white hover:bg-red-500 text-xl p-0 absolute -top-2 -right-2" onClick={()=>{setAddQuestion(false);setEmpty(false);setNewQuestion("")}}><RxCross1 className="text-lg"/></button>
             <label htmlFor="question">Question : </label>
             <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoComplete="off" autoFocus placeholder="Question..." value={newQuestion} onChange={(e)=>{setNewQuestion(e.target.value);}}/>
             <label htmlFor="question">Answer : </label>
-            <input type="text" name="answer" id="answer" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoComplete="off" placeholder="Answer..."
-            value={newAnswer} onChange={(e)=>setNewAnswer(e.target.value)}/>
+            {/* <input type="text" name="answer" id="answer" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoComplete="off" placeholder="Answer..."
+            value={newAnswer} onChange={(e)=>setNewAnswer(e.target.value)}/> */}
+            <Tiptap newAnswer={newAnswer} setNewAnswer={setNewAnswer}/>
             {empty && <p className="text-red-500 text-sm">*Please fill the question and answer</p>}
+
             <button type="submit" className="bg-blue-600 text-sm text-slate-50 py-2 px-3 rounded-md font-semibold w-fit flex gap-2 mt-2" >Add <HiPlus className="text-lg"/></button>
           </form>
         )}
@@ -89,12 +102,13 @@ export default function Dashboard(){
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
           sensors={sensors}
+          measuring={measuringConfig}
         >
           <SortableContext
             items={data}
             strategy={verticalListSortingStrategy}
           >
-            {data.map((item) => (<SortableItem key={item.id} {...item}/>))}
+            {data.map((item) => (<SortableItem handleDelete={handleDelete} key={item.id} {...item}/>))}
 
           </SortableContext>
 
