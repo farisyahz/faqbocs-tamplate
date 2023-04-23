@@ -9,9 +9,9 @@ import parse from 'html-react-parser'
 export default function SortableItem({id, q, a, handleDelete}:{id:number, q:string, a:string, handleDelete:(id:number)=>void}){
 
   function animateLayoutChanges(args:any) {
-    const {isSorting, wasSorting} = args;
+    const {isSorting, wasDragging} = args;
   
-    if (isSorting || wasSorting) {
+    if (isSorting || wasDragging) {
       return defaultAnimateLayoutChanges(args);
     }
   
@@ -24,11 +24,12 @@ export default function SortableItem({id, q, a, handleDelete}:{id:number, q:stri
     setNodeRef,
     transform,
     transition,
-  } = useSortable({animateLayoutChanges, id:id})
+  } = useSortable({animateLayoutChanges, id:id })
 
   const style = {
+    transition,
     transform : CSS.Translate.toString(transform),
-    transition
+    
   }
 
   const [showAnswer, setShowAnswer] = useState(false);
