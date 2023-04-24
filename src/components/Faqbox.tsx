@@ -1,5 +1,5 @@
 import Image from "next/image"
-import logo from "../assets/faqbocs-logo.png"
+import logo from "../assets/round-logo-light.png"
 import {BiSearch} from 'react-icons/bi'
 import {useState} from 'react'
 import AccordionItem from "./AccordionItem"
@@ -43,11 +43,10 @@ export default function(){
       {pop && <PopupQuestion setPop={setPop}/>}
       <div className="flex flex-col min-h-[100vh] align-middle sm:max-w-md justify-between py-16 px-10 mx-auto">
         <div className="mx-auto flex flex-col items-center">
-          <div className="bg-[#f4f4f4] w-36 h-36 shadow-md rounded-full flex relative">
+          <div className=" w-36 h-36 shadow-md rounded-full relative">
             <Image
               src={logo}
-              height={100}
-              width={100}
+              fill
               alt=""
               className="m-auto"
             />

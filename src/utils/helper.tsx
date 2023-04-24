@@ -27,7 +27,8 @@ function isInteractiveElement(element: Element | null) {
       "textarea",
       "select",
       "option",
-      "div"
+      "div",
+      "p"
   ];
   if (
       element?.tagName &&

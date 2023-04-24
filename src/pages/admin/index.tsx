@@ -78,19 +78,27 @@ export default function Dashboard(){
   }
 
   return(
-    <div className="min-w-[100vw] h-[100vh] overflow-hidden hidd bg-sky-300">
-      <div className="sm:max-w-lg w-[95%] mx-auto pt-10">
-        <h1 className="font-poppins text-3xl font-semibold text-center">Dashboard</h1>
+    <div className="min-w-[100vw] h-[100vh] overflow-hidden hidd bg-orange-100">
+      <div className="fixed top-20 left-40 w-40 h-40 rounded-full bg-orange-400 blur-3xl z-0"></div>
+      <div className="fixed bottom-20 right-60 w-60 h-60 rounded-full bg-orange-400 blur-[100px] z-0"></div>
+      <div className="sm:max-w-lg w-[95%] mx-auto pt-10 relative z-10">
+        <h1 className="font-poppins text-3xl font-semibold text-center ">Dashboard</h1>
 
-        {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-500 flex justify-center items-center py-2 px-3 w-full transition font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
+        {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-800 flex justify-center items-center py-2 px-3 w-full transition font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
         {addQuestion && (
           <form onSubmit={handleSumbit} className={`w-full p-5 flex font-poppins flex-col backdrop-blur-md bg-white/50 border-[1px] border-gray-200 rounded-lg gap-2 mt-3 relative`}>
             <button className="h-8 w-8 rounded-full flex justify-center items-center text-slate-900 bg-gray-100 transition hover:text-white hover:bg-red-500 text-xl p-0 absolute -top-2 -right-2" onClick={()=>{setAddQuestion(false);setEmpty(false);setNewQuestion("")}}><RxCross1 className="text-lg"/></button>
+
             <label htmlFor="question">Question : </label>
-            <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoComplete="off" autoFocus placeholder="Question..." value={newQuestion} onChange={(e)=>{setNewQuestion(e.target.value);}}/>
+
+            <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" 
+            autoComplete="off" autoFocus placeholder="Question..." 
+            value={newQuestion} 
+            onChange={(e)=>{setNewQuestion(e.target.value);}}
+            onKeyDown={(e) => {if(e.key === 'Enter') e.preventDefault()}}/>
+
             <label htmlFor="question">Answer : </label>
-            {/* <input type="text" name="answer" id="answer" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" autoComplete="off" placeholder="Answer..."
-            value={newAnswer} onChange={(e)=>setNewAnswer(e.target.value)}/> */}
+
             <Tiptap newAnswer={newAnswer} setNewAnswer={setNewAnswer}/>
             {empty && <p className="text-red-500 text-sm">*Please fill the question and answer</p>}
 
