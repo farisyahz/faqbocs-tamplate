@@ -87,7 +87,7 @@ export default function Dashboard(){
         {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-800 flex justify-center items-center py-2 px-3 w-full transition font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
         {addQuestion && (
           <form onSubmit={handleSumbit} className={`w-full p-5 flex font-poppins flex-col backdrop-blur-md bg-white/50 border-[1px] border-gray-200 rounded-lg gap-2 mt-3 relative`}>
-            <button className="h-8 w-8 rounded-full flex justify-center items-center text-slate-900 bg-gray-100 transition hover:text-white hover:bg-red-500 text-xl p-0 absolute -top-2 -right-2" onClick={()=>{setAddQuestion(false);setEmpty(false);setNewQuestion("")}}><RxCross1 className="text-lg"/></button>
+            <button className="h-8 w-8 rounded-full flex justify-center items-center text-slate-900 bg-gray-200 transition hover:text-white hover:bg-red-500 text-xl p-0 absolute -top-2 -right-2" onClick={()=>{setAddQuestion(false);setEmpty(false);setNewQuestion("")}}><RxCross1 className="text-xl"/></button>
 
             <label htmlFor="question">Question : </label>
 
@@ -98,7 +98,6 @@ export default function Dashboard(){
             onKeyDown={(e) => {if(e.key === 'Enter') e.preventDefault()}}/>
 
             <label htmlFor="question">Answer : </label>
-
             <Tiptap newAnswer={newAnswer} setNewAnswer={setNewAnswer}/>
             {empty && <p className="text-red-500 text-sm">*Please fill the question and answer</p>}
 
@@ -116,7 +115,7 @@ export default function Dashboard(){
             items={data}
             strategy={verticalListSortingStrategy}
           >
-            {data.map((item) => (<SortableItem handleDelete={handleDelete} key={item.id} {...item}/>))}
+            {data.map((item) => (<SortableItem data={data} handleDelete={handleDelete} key={item.id} {...item}/>))}
 
           </SortableContext>
 

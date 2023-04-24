@@ -6,8 +6,17 @@ import {RxDragHandleDots2} from 'react-icons/rx'
 import {CiTrash, CiEdit} from 'react-icons/ci'
 import {FiCheck} from 'react-icons/fi'
 import parse from 'html-react-parser'
+import TiptapEdit from "./TiptapEdit";
 
-export default function SortableItem({id, q, a, handleDelete}:{id:number, q:string, a:string, handleDelete:(id:number)=>void}){
+type ItemProps = {
+  data : {id:number, q:string, a:string}[],
+  id:number,
+  q:string,
+  a:string,
+  handleDelete:(id:number)=>void
+}
+
+export default function SortableItem({data, id, q, a, handleDelete}:ItemProps){
 
   function animateLayoutChanges(args:any) {
     const {isSorting, wasDragging} = args;
@@ -36,6 +45,12 @@ export default function SortableItem({id, q, a, handleDelete}:{id:number, q:stri
   const [showAnswer, setShowAnswer] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [newAnswer, setNewAnswer] = useState(a);
+  const [newQuestion, setNewQuestion] = useState(q);
+
+  const handleSubmitEdit = (id:number) => {
+    console.log(id)
+  }
 
   return(
     <div ref={setNodeRef} style={style} className="touch-none" {...attributes} {...listeners}>
@@ -50,13 +65,23 @@ export default function SortableItem({id, q, a, handleDelete}:{id:number, q:stri
           </div>
         </div>
       )}
+      
       {edit && (
-        <div className="font-poppins cursor-default w-full bg-white/50 backdrop-blur-md border-[1px] border-gray-200 rounded-t-lg flex mt-3 transition duration-300 group">
-          <div className="w-full p-5">
-            <div>This is being edited</div>
-          </div>
+        <div className="font-poppins cursor-default w-full bg-white/50 backdrop-blur-md border-[1px] border-gray-200 rounded-t-lg flex flex-col mt-3 group gap-2 p-5">
+          <label htmlFor="question">Question : </label>
+          <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" 
+          autoComplete="off" autoFocus 
+          spellCheck="false" 
+          placeholder="Question..." 
+          value={newQuestion} 
+          onChange={(e)=>{setNewQuestion(e.target.value);}}
+          onKeyDown={(e) => {if(e.key === 'Enter') e.preventDefault()}}/>
+
+          <label htmlFor="question" className="mt-2">Answer : </label>
+          <TiptapEdit data={data} newAnswer={newAnswer} setNewAnswer={setNewAnswer}/>
         </div>
       )}
+
       {deleteConfirm && (
         <div className={`bg-white cursor-default flex flex-wrap font-poppins text-sm justify-center items-center gap-2 py-2 border-b-[1px] border-b-gray-200 overflow-hidden  transition duration-500`}>
           <p>Delete this forever?</p> 

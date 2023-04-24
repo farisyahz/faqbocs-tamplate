@@ -16,7 +16,7 @@ type Props = {
   setNewAnswer : React.Dispatch<React.SetStateAction<string>>,
 }
 
-const Tiptap = ({data, newAnswer, setNewAnswer}:Props) => {
+const TiptapEdit = ({data, newAnswer, setNewAnswer}:Props) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -73,4 +73,4 @@ const Tiptap = ({data, newAnswer, setNewAnswer}:Props) => {
   )
 }
 
-export default Tiptap
+export default TiptapEdit
