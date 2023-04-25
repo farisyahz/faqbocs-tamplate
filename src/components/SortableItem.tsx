@@ -60,10 +60,10 @@ export default function SortableItem({data, setData, id, q, a, handleDelete}:Ite
   }
 
   return(
-    <div ref={setNodeRef} style={style}  {...attributes} >
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes} >
       {!edit && (
         <div className="font-poppins cursor-default w-full bg-white/50 backdrop-blur-md border-[1px] border-gray-200 rounded-t-lg flex mt-3 transition duration-300 group">
-          <span {...listeners} ref={setActivatorNodeRef} className="w-10 touch-none flex cursor-grab active:cursor-grabbing">
+          <span className="w-10 touch-none flex cursor-grab active:cursor-grabbing">
           <RxDragHandleDots2 className="text-lg m-auto"/>
           </span>
           <div className="w-full p-3">
