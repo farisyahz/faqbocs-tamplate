@@ -28,7 +28,8 @@ function isInteractiveElement(element: Element | null) {
       "select",
       "option",
       "div",
-      "a"
+      "a",
+      "p"
   ];
   if (
       element?.tagName &&
