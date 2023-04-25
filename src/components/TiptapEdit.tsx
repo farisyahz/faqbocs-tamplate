@@ -56,23 +56,26 @@ const TiptapEdit = ({newAnswer, setNewAnswer}:Props) => {
           <button
             type='button'
             onClick={() => editor.chain().focus().toggleBold().run()}
-            className={`${editor.isActive('bold') ? 'bg-slate-900 text-slate-50 ' : 'hover:bg-gray-100'} rounded-md  p-1`}
+            className={`${editor.isActive('bold') ? 'bg-slate-900 text-slate-50 ' : 'hover:bg-gray-100'} rounded-md  p-1 relative`}
           >
             <GoBold className='text-xl'/>
+            <div className="w-full h-full absolute top-0 right-0"></div>
           </button>
           <button
             type='button'
             onClick={() => editor.chain().focus().toggleItalic().run()}
-            className={`${editor.isActive('italic') ? 'bg-slate-900 text-slate-50 ' : 'hover:bg-gray-100'} rounded-md  p-1`}
+            className={`${editor.isActive('italic') ? 'bg-slate-900 text-slate-50 ' : 'hover:bg-gray-100'} rounded-md  p-1 relative`}
           >
             <AiOutlineItalic className='text-xl'/>
+            <div className="w-full h-full absolute top-0 right-0"></div>
           </button>
           <button
             type='button'
             onClick={() => editor.chain().focus().toggleStrike().run()}
-            className={`${editor.isActive('strike') ? 'bg-slate-900 text-slate-50 ' : 'hover:bg-gray-100'} rounded-md  p-1`}
+            className={`${editor.isActive('strike') ? 'bg-slate-900 text-slate-50 ' : 'hover:bg-gray-100'} rounded-md  p-1 relative`}
           >
             <BsTypeStrikethrough className='text-xl'/>
+            <div className="w-full h-full absolute top-0 right-0"></div>
           </button>
         </div>
       </BubbleMenu>}

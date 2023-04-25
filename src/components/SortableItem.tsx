@@ -33,7 +33,6 @@ export default function SortableItem({data, setData, id, q, a, handleDelete}:Ite
     attributes,
     listeners,
     setNodeRef,
-    setActivatorNodeRef,
     transform,
     transition,
   } = useSortable({animateLayoutChanges, id:id })
@@ -44,7 +43,7 @@ export default function SortableItem({data, setData, id, q, a, handleDelete}:Ite
     
   }
 
-  const [showAnswer, setShowAnswer] = useState(true);
+  const [showAnswer, setShowAnswer] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [edit, setEdit] = useState(false);
   const [newAnswer, setNewAnswer] = useState(a);
@@ -62,13 +61,13 @@ export default function SortableItem({data, setData, id, q, a, handleDelete}:Ite
   return(
     <div ref={setNodeRef} style={style} {...listeners} {...attributes} >
       {!edit && (
-        <div className="font-poppins cursor-default w-full bg-white/50 backdrop-blur-md border-[1px] border-gray-200 rounded-t-lg flex mt-3 transition duration-300 group">
+        <div className="font-poppins cursor-default w-full bg-white/50 backdrop-blur-md border-[1px] border-gray-200 rounded-t-lg flex mt-5 transition duration-300 group">
           <span className="w-10 touch-none flex cursor-grab active:cursor-grabbing">
           <RxDragHandleDots2 className="text-lg m-auto"/>
           </span>
           <div className="w-full p-3">
-            <div className=" font-semibold mb-1">{q}</div>
-            {showAnswer && <div className="text-sm relative break-words">{parse(a)}</div>}
+            <div className="text-lg font-semibold mb-1">{q}</div>
+            {showAnswer && <div className=" relative break-words">{parse(a)}</div>}
           </div>
         </div>
       )}
@@ -90,9 +89,9 @@ export default function SortableItem({data, setData, id, q, a, handleDelete}:Ite
       )}
 
       {deleteConfirm && (
-        <div className={`bg-white cursor-default flex flex-wrap font-poppins text-sm justify-center items-center gap-2 py-2 border-t-[1px] border-t-gray-200 rounded-b-lg overflow-hidden  transition duration-500`}>
+        <div className={`bg-white cursor-default flex flex-wrap font-poppins text-sm justify-center items-center gap-2 py-2  rounded-b-lg overflow-hidden  transition duration-500`}>
           <p>Delete this forever?</p> 
-          <button className="bg-gray-100 py-2 px-3 hover:bg-slate-900 hover:text-white rounded-full transition" onClick={() => {setDeleteConfirm(false);setShowAnswer(true)}}>Cancel</button>
+          <button className="bg-gray-100 py-2 px-3 hover:bg-slate-900 hover:text-white rounded-full transition" onClick={() => {setDeleteConfirm(false);setShowAnswer(false)}}>Cancel</button>
           <button className="bg-red-100 py-2 px-3 hover:bg-red-500 hover:text-white rounded-full text-red-600 transition" onClick={() => handleDelete(id)}>Delete</button>
         </div>
       )}
@@ -107,15 +106,15 @@ export default function SortableItem({data, setData, id, q, a, handleDelete}:Ite
       )}
 
       {(!edit && !deleteConfirm) && (
-        <div className="bg-white cursor-default rounded-b-lg pl-12 py-2 flex gap-2 font-poppins">
-          <button className="py-1 px-2 text-sm rounded-md transition bg-gray-100 font-normal" 
+        <div className="bg-white cursor-default rounded-b-lg px-12 py-2 flex gap-2 font-poppins">
+          <button className="p-2 text-sm rounded-md transition bg-gray-100 font-normal" 
           onClick={()=>setShowAnswer(!showAnswer)}>{showAnswer ? "Hide" : "Show"} answer</button>
 
-          <button className="py-1 px-2 relative text-sm rounded-md transition hover:bg-gray-100 font-semibold"
+          <button className="p-2 relative text-sm rounded-md transition hover:bg-gray-100 font-semibold"
             onClick={() => {setEdit(true);setDeleteConfirm(false)}}
           ><CiEdit className="text-xl"/><div className="w-full h-full absolute top-0 right-0"></div></button>
 
-          <button className="py-1 px-2 relative text-sm rounded-md transition hover:bg-gray-100 font-semibold" onClick={() => {setDeleteConfirm(true);setShowAnswer(true)}}><CiTrash className="text-xl"/><div className="w-full h-full absolute top-0 right-0"></div></button>
+          <button className="p-2 relative text-sm rounded-md transition hover:bg-gray-100 font-semibold" onClick={() => {setDeleteConfirm(true);setShowAnswer(true)}}><CiTrash className="text-xl"/><div className="w-full h-full absolute top-0 right-0"></div></button>
         </div>
       )}
     </div>

@@ -12,6 +12,8 @@ import {useState} from 'react'
 import {RxCross1} from "react-icons/rx"
 import { SmartPointerSensor } from "@/utils/helper";
 import Tiptap from "@/components/Tiptap";
+import AdminLayout from "@/components/AdminLayout";
+import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
 
 
 
@@ -79,10 +81,8 @@ export default function Dashboard(){
   }
 
   return(
-    <div className="min-h-[100vh] bg-orange-100 py-10">
-      <div className="fixed top-20 left-40 w-40 h-40 rounded-full bg-orange-400 blur-3xl z-0"></div>
-      <div className="fixed bottom-20 right-60 w-60 h-60 rounded-full bg-orange-400 blur-[100px] z-0"></div>
-      <div className="sm:max-w-lg w-[95%] mx-auto relative z-10">
+    <AdminLayout>
+      <div className=" sm:w-full sm:max-w-lg lg:max-w-2xl w-[95%] sm:m-0 mx-auto relative z-10">
         <h1 className="font-poppins text-3xl font-semibold text-center ">Dashboard</h1>
 
         {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-800 flex justify-center items-center py-2 px-3 w-full transition font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
@@ -111,6 +111,7 @@ export default function Dashboard(){
           onDragEnd={handleDragEnd}
           sensors={sensors}
           measuring={measuringConfig}
+          modifiers={[restrictToWindowEdges, restrictToVerticalAxis]}
         >
           <SortableContext
             items={data}
@@ -119,13 +120,8 @@ export default function Dashboard(){
             {data.map((item) => (<SortableItem data={data} setData={setData} handleDelete={handleDelete} key={item.id} {...item}/>))}
 
           </SortableContext>
-
         </DndContext>
-
-        
-
       </div>
-    </div>
-    
+    </AdminLayout>
   )
 }
