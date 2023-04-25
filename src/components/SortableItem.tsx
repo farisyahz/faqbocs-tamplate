@@ -102,7 +102,7 @@ export default function SortableItem({data, setData, id, q, a, handleDelete}:Ite
           <button className="bg-gray-100 py-2 px-3 hover:bg-slate-900 hover:text-white rounded-full transition" onClick={() => {setEdit(false);handleCancelEdit()}}>Cancel</button>
           <button className="py-2 px-3 relative text-sm rounded-full transition bg-blue-100 text-blue-800 hover:bg-blue-600 hover:text-white flex items-center gap-1"
             onClick={() => {handleSubmitEdit(id);setEdit(false)}}
-          >Submit<FiCheck className="text-lg"/></button>
+          >Submit<FiCheck className="text-lg"/><div className="w-full h-full absolute top-0 right-0"></div></button>
         </div>
       )}
 
@@ -113,9 +113,9 @@ export default function SortableItem({data, setData, id, q, a, handleDelete}:Ite
 
           <button className="py-1 px-2 relative text-sm rounded-md transition hover:bg-gray-100 font-semibold"
             onClick={() => {setEdit(true);setDeleteConfirm(false)}}
-          ><CiEdit className="text-xl"/></button>
+          ><CiEdit className="text-xl"/><div className="w-full h-full absolute top-0 right-0"></div></button>
 
-          <button className="py-1 px-2 relative text-sm rounded-md transition hover:bg-gray-100 font-semibold" onClick={() => {setDeleteConfirm(true);setShowAnswer(true)}}><CiTrash className="text-xl"/></button>
+          <button className="py-1 px-2 relative text-sm rounded-md transition hover:bg-gray-100 font-semibold" onClick={() => {setDeleteConfirm(true);setShowAnswer(true)}}><CiTrash className="text-xl"/><div className="w-full h-full absolute top-0 right-0"></div></button>
         </div>
       )}
     </div>
