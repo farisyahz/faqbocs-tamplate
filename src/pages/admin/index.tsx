@@ -4,7 +4,8 @@ import { DndContext,
   closestCenter,
   MeasuringStrategy,
   useSensor,
-  useSensors
+  useSensors,
+  DragOverlay
   } from "@dnd-kit/core"
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import {useState} from 'react'
@@ -78,10 +79,10 @@ export default function Dashboard(){
   }
 
   return(
-    <div className="min-w-[100vw] h-[100vh] overflow-hidden hidd bg-orange-100">
+    <div className="min-w-[100vw] h-[100vh] overflow-auto bg-orange-100 py-10">
       <div className="fixed top-20 left-40 w-40 h-40 rounded-full bg-orange-400 blur-3xl z-0"></div>
       <div className="fixed bottom-20 right-60 w-60 h-60 rounded-full bg-orange-400 blur-[100px] z-0"></div>
-      <div className="sm:max-w-lg w-[95%] mx-auto pt-10 relative z-10">
+      <div className="sm:max-w-lg w-[95%] mx-auto relative z-10">
         <h1 className="font-poppins text-3xl font-semibold text-center ">Dashboard</h1>
 
         {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-800 flex justify-center items-center py-2 px-3 w-full transition font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
@@ -91,13 +92,13 @@ export default function Dashboard(){
 
             <label htmlFor="question">Question : </label>
 
-            <input type="text" name="question" id="question" className=" px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full" 
+            <input type="text" name="question" id="question" className="py-1 text-sm border-b-2 border-slate-300 focus:border-slate-900 bg-transparent outline-none w-full" 
             autoComplete="off" autoFocus placeholder="Question..." 
             value={newQuestion} 
             onChange={(e)=>{setNewQuestion(e.target.value);}}
             onKeyDown={(e) => {if(e.key === 'Enter') e.preventDefault()}}/>
 
-            <label htmlFor="question">Answer : </label>
+            <label htmlFor="question" className="mt-2">Answer : </label>
             <Tiptap newAnswer={newAnswer} setNewAnswer={setNewAnswer}/>
             {empty && <p className="text-red-500 text-sm">*Please fill the question and answer</p>}
 
@@ -115,7 +116,7 @@ export default function Dashboard(){
             items={data}
             strategy={verticalListSortingStrategy}
           >
-            {data.map((item) => (<SortableItem data={data} handleDelete={handleDelete} key={item.id} {...item}/>))}
+            {data.map((item) => (<SortableItem data={data} setData={setData} handleDelete={handleDelete} key={item.id} {...item}/>))}
 
           </SortableContext>
 

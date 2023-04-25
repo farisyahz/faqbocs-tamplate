@@ -11,16 +11,15 @@ import {AiOutlineItalic} from 'react-icons/ai'
 import {BsTypeStrikethrough} from 'react-icons/bs'
 
 type Props = {
-  data : {id:number, q:string, a:string}[],
   newAnswer : string,
-  setNewAnswer : React.Dispatch<React.SetStateAction<string>>,
+  setNewAnswer : React.Dispatch<React.SetStateAction<string>>
 }
 
-const TiptapEdit = ({data, newAnswer, setNewAnswer}:Props) => {
+const TiptapEdit = ({newAnswer, setNewAnswer}:Props) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class: 'px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full',
+        class: 'py-1 text-sm border-b-2 border-slate-300 focus:border-slate-900 outline-none w-full cursor-text',
         spellcheck: 'false'
       },
     },
@@ -30,7 +29,7 @@ const TiptapEdit = ({data, newAnswer, setNewAnswer}:Props) => {
         placeholder: 'Answer ...',
       })
     ],
-    content: `<p></p>`,
+    content: `${newAnswer}`,
     onUpdate: ({ editor }) => {
       const json = editor.getHTML()
       setNewAnswer(`${json}`);

@@ -60,7 +60,7 @@ export default function(){
             onChange={handleSearch}/>
           </div>
           
-          <button className="bg-slate-900 text-slate-50 rounded-full w-full py-2 px-5 mt-3 font-semibold hover:bg-slate-700" onClick={() => setPop(true)}>Question?</button>
+          <button className="bg-slate-900 text-slate-50 rounded-full w-full py-2 px-5 mt-3 font-semibold hover:bg-slate-700" onClick={() => setPop(true)}>More question?</button>
           <section>
             {
               dataSearched.map((faq) => (<AccordionItem key={faq.id} question={faq.q} answer={faq.a}/>))

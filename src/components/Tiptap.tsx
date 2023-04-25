@@ -9,6 +9,7 @@ import React, { useEffect } from 'react'
 import {GoBold} from 'react-icons/go'
 import {AiOutlineItalic} from 'react-icons/ai'
 import {BsTypeStrikethrough} from 'react-icons/bs'
+import Link from '@tiptap/extension-link'
 
 type Props = {
   newAnswer : string,
@@ -19,7 +20,7 @@ const Tiptap = ({newAnswer, setNewAnswer}:Props) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class: 'px-2 py-1 text-sm border-b-2 border-slate-400 bg-slate-50/70 focus:border-slate-800 outline-none w-full',
+        class: 'py-1 text-sm border-b-2 border-slate-300 focus:border-slate-900 outline-none w-full',
         spellcheck: 'false'
       },
     },
@@ -27,6 +28,14 @@ const Tiptap = ({newAnswer, setNewAnswer}:Props) => {
       StarterKit,
       Placeholder.configure({
         placeholder: 'Answer ...',
+      }),
+      Link.configure({
+        autolink:true,
+        openOnClick:true,
+        HTMLAttributes:{
+          class: 'text-blue-500 hover:underline'
+        },
+        validate: href => /^(http(s)?:\/\/)?(.*).(co|me|com|id|ee)(.+)?/.test(href)
       })
     ],
     content: `<p></p>`,
