@@ -83,7 +83,7 @@ export default function Dashboard(){
 
   return(
     <AdminLayout>
-      <div className=" sm:w-full sm:max-w-lg lg:max-w-2xl w-[95%] sm:m-0 mx-auto relative z-10">
+      <div className=" sm:w-full max-w-3xl w-[95%] sm:m-0 mx-auto relative z-10">
         <h1 className="font-poppins text-3xl font-semibold text-center ">Dashboard</h1>
 
         {!addQuestion && <button className="bg-blue-600 mt-5 hover:bg-blue-800 flex justify-center items-center py-2 px-3 w-full transition font-poppins font-semibold gap-1 rounded-lg text-slate-50" onClick={() => setAddQuestion(!addQuestion)}><HiPlus className="text-xl"/>Add Question</button>}
@@ -124,7 +124,7 @@ export default function Dashboard(){
         </DndContext>
       </div>
       <div className="lg:flex hidden h-fit sticky top-24 z-10">
-        <div className="w-[250px] h-[531.25px] rounded-2xl mx-auto bg-slate-900  font-semibold  relative  overflow-x-hidden hidden-scrollbar">
+        <div className="w-[250px] 2xl:w-[350px] h-[531.25px] 2xl:h-[743.75px] rounded-2xl mx-auto bg-slate-900  font-semibold  relative  overflow-x-hidden hidden-scrollbar">
           <FaqboxPreview data={data}/>
         </div>
       </div>
