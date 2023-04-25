@@ -9,6 +9,7 @@ import React, { useEffect } from 'react'
 import {GoBold} from 'react-icons/go'
 import {AiOutlineItalic} from 'react-icons/ai'
 import {BsTypeStrikethrough} from 'react-icons/bs'
+import Link from '@tiptap/extension-link'
 
 type Props = {
   newAnswer : string,
@@ -27,6 +28,14 @@ const TiptapEdit = ({newAnswer, setNewAnswer}:Props) => {
       StarterKit,
       Placeholder.configure({
         placeholder: 'Answer ...',
+      }),
+      Link.configure({
+        autolink:true,
+        openOnClick:true,
+        HTMLAttributes:{
+          class: 'text-blue-500 hover:underline'
+        },
+        validate: href => /^(http(s)?:\/\/)?(.*).(co|me|com|id|ee)(.+)?/.test(href)
       })
     ],
     content: `${newAnswer}`,
