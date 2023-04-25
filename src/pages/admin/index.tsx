@@ -14,6 +14,7 @@ import { SmartPointerSensor } from "@/utils/helper";
 import Tiptap from "@/components/Tiptap";
 import AdminLayout from "@/components/AdminLayout";
 import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
+import FaqboxPreview from "@/components/FaqboxPreview";
 
 
 
@@ -121,6 +122,11 @@ export default function Dashboard(){
 
           </SortableContext>
         </DndContext>
+      </div>
+      <div className="lg:flex hidden h-fit sticky top-24 z-10">
+        <div className="w-[250px] h-[531.25px] rounded-2xl mx-auto bg-slate-900  font-semibold  relative  overflow-x-hidden hidden-scrollbar">
+          <FaqboxPreview data={data}/>
+        </div>
       </div>
     </AdminLayout>
   )

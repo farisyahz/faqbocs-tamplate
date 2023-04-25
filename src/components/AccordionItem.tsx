@@ -12,7 +12,7 @@ export default function AccordionItem({question, answer}:any){
           {open ? <AiOutlineMinus className="w-5"/> : <AiOutlinePlus className="w-5"/>}
         </div>
         <Collapse isOpened={open}>
-          <div className="font-poppins pb-3 px-5 transition ">{answer}</div>
+          <div className="font-poppins pb-3 px-5 transition font-normal">{answer}</div>
         </Collapse>
       </div>
       
